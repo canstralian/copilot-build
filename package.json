@@ -52,9 +52,20 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["get_time", "calculate", "file_operation", "system_info", "git", "process"]
+            "enum": [
+              "get_time",
+              "calculate",
+              "file_operation",
+              "system_info",
+              "git",
+              "process"
+            ]
           },
-          "default": ["get_time", "calculate", "file_operation"],
+          "default": [
+            "get_time",
+            "calculate",
+            "file_operation"
+          ],
           "description": "List of MCP tools to enable"
         },
         "hackerLogic.mcp.workspaceRoot": {
@@ -103,7 +114,9 @@
     "docs:generate": "echo 'Generate documentation here'",
     "release:patch": "npm version patch && npm run package",
     "release:minor": "npm version minor && npm run package",
-    "release:major": "npm version major && npm run package"
+    "release:major": "npm version major && npm run package",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org your-org --project your-project ./dist",
+    "build:production": "npm run build && npm run sentry:sourcemaps"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
@@ -120,6 +133,9 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.19.1",
+    "@sentry/browser": "^10.19.0",
+    "@sentry/node": "^10.19.0",
+    "@sentry/profiling-node": "^10.19.0",
     "zod": "^3.25.76"
   }
 }

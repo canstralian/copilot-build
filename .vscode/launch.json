@@ -6,6 +6,15 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"type": "pwa-extensionHost",
+			"request": "launch",
+			"name": "Open Simple Browser",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--openSimpleBrowser"
+			]
+		},
+		{
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",

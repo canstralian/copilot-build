@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as childProcess from 'child_process';
+import * as Sentry from '@sentry/browser';
 
 // Global reference to track spawned server process for proper cleanup
 let serverProcess: childProcess.ChildProcess | null = null;
@@ -40,6 +41,15 @@ class McpServerProvider implements vscode.McpServerDefinitionProvider<vscode.Mcp
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+	// Initialize Sentry for VS Code extension
+	if (process.env.NODE_ENV === 'production') {
+		Sentry.init({
+			dsn: process.env.SENTRY_DSN,
+			environment: 'vscode-extension',
+			tracesSampleRate: 0.1,
+		});
+	}
+
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "hacker-logic" is now active!');

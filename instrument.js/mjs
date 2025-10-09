@@ -1,0 +1,9 @@
+// Import with `import * as Sentry from "@sentry/node"` if you are using ESM
+const Sentry = require("@sentry/node");
+
+Sentry.init({
+  dsn: "https://5887e0acf1d891bf61b0df73ddd244fd@o4509009009770496.ingest.de.sentry.io/4510159357083728",
+  // Setting this option to true will send default PII data to Sentry.
+  // For example, automatic IP address collection on events
+  sendDefaultPii: true,
+});
