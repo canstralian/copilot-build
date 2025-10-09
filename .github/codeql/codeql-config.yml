@@ -1,0 +1,26 @@
+name: "Hacker Logic MCP Server CodeQL Config"
+
+disable-default-queries: false
+
+queries:
+  - name: security-and-quality
+    uses: security-and-quality
+  - name: security-extended
+    uses: security-extended
+
+paths-ignore:
+  - node_modules
+  - dist
+  - out
+  - "**/*.test.ts"
+  - "**/*.test.js"
+
+paths:
+  - src
+
+packs:
+  javascript:
+    - codeql/javascript-queries:Security
+    - codeql/javascript-queries:AlertSuppression
+    - codeql/javascript-queries:Correctness
+    - codeql/javascript-queries:Maintainability
