@@ -1,0 +1,125 @@
+{
+  "name": "hacker-logic",
+  "displayName": "MCP Server Extension",
+  "description": "VS Code extension that provides MCP server integration",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.104.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "hacker-logic.helloWorld",
+        "title": "Hacker Logic: Hello World"
+      },
+      {
+        "command": "hacker-logic.startMcpServer",
+        "title": "Hacker Logic: Start MCP Server"
+      },
+      {
+        "command": "hacker-logic.testMcpServer",
+        "title": "Hacker Logic: Test MCP Server"
+      },
+      {
+        "command": "hacker-logic.restartMcpServer",
+        "title": "Hacker Logic: Restart MCP Server"
+      },
+      {
+        "command": "hacker-logic.showServerLogs",
+        "title": "Hacker Logic: Show Server Logs"
+      },
+      {
+        "command": "hacker-logic.openMcpConfig",
+        "title": "Hacker Logic: Open MCP Configuration"
+      }
+    ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "hacker-logic.mcp-servers",
+        "label": "Hacker Logic MCP Servers"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Hacker Logic MCP Extension",
+      "properties": {
+        "hackerLogic.mcp.enabledTools": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["get_time", "calculate", "file_operation", "system_info", "git", "process"]
+          },
+          "default": ["get_time", "calculate", "file_operation"],
+          "description": "List of MCP tools to enable"
+        },
+        "hackerLogic.mcp.workspaceRoot": {
+          "type": "string",
+          "description": "Custom workspace root for MCP server (default: current workspace)"
+        },
+        "hackerLogic.mcp.maxFileSize": {
+          "type": "number",
+          "default": 10485760,
+          "description": "Maximum file size in bytes for file operations (default: 10MB)"
+        },
+        "hackerLogic.mcp.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start MCP server when extension activates"
+        },
+        "hackerLogic.debug.verbose": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable verbose debug logging"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "vscode-test",
+    "test:mcp": "echo '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}' | node out/mcpServer.js",
+    "test:security": "npm run test:mcp && echo 'Security tests would go here'",
+    "clean": "rm -rf out dist node_modules/.cache",
+    "dev:server": "npm run compile && node out/mcpServer.js",
+    "dev:extension": "npm run watch",
+    "analyze:bundle": "npm run package && ls -lah dist/ out/",
+    "security:audit": "npm audit && npm audit fix",
+    "docs:generate": "echo 'Generate documentation here'",
+    "release:patch": "npm version patch && npm run package",
+    "release:minor": "npm version minor && npm run package",
+    "release:major": "npm version major && npm run package"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.104.0",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.25.10",
+    "eslint": "^9.36.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.19.1",
+    "zod": "^3.25.76"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "servers": {
+    "hacker-logic-dev": {
+      "command": "node",
+      "args": ["out/mcpServer.js"],
+      "env": {
+        "NODE_ENV": "development",
+        "MCP_SERVER_NAME": "hacker-logic-dev",
+        "MCP_ENABLED_TOOLS": "get_time,calculate,file_operation,system_info,git"
+      }
+    },
+    "hacker-logic-prod": {
+      "command": "node", 
+      "args": ["out/mcpServer.js"],
+      "env": {
+        "NODE_ENV": "production",
+        "MCP_SERVER_NAME": "hacker-logic-prod",
+        "MCP_ENABLED_TOOLS": "get_time,calculate,file_operation"
+      }
+    }
+  }
+}
