@@ -134,8 +134,8 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.19.1",
     "@sentry/browser": "^10.19.0",
-    "@sentry/node": "^10.19.0",
-    "@sentry/profiling-node": "^10.19.0",
+    "@sentry/node": "^10.27.0",
+    "@sentry/profiling-node": "^10.27.0",
     "zod": "^3.25.76"
   }
 }
